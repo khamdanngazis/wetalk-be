@@ -15,7 +15,7 @@ var DB *gorm.DB
 
 func InitDB() *gorm.DB {
 	dsn := fmt.Sprintf(
-		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable TimeZone=Asia/Jakarta",
 		config.GetEnv("DB_HOST", "localhost"),
 		config.GetEnv("DB_USER", "postgres"),
 		config.GetEnv("DB_PASSWORD", "postgres"),
@@ -29,7 +29,7 @@ func InitDB() *gorm.DB {
 		log.Fatalf("Failed to connect to the database: %v", err)
 	}
 
-	log.Println("Database connected")
+	log.Println("Database connected with timezone Asia/Jakarta")
 
 	return DB
 }

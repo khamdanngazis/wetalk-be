@@ -78,6 +78,10 @@ func (h *ChatRoomHandler) GetRooms(w http.ResponseWriter, r *http.Request) {
 		middleware.WriteResponse(w, http.StatusInternalServerError, err.Error(), nil)
 	}
 
+	if rooms == nil {
+		rooms = []models.GetChatRoomResponse{} // Assuming Room is the type of the elements in the rooms slice
+	}
+
 	response := map[string]interface{}{
 		"rooms": rooms,
 		"total": total,

@@ -6,6 +6,8 @@ import (
 	"chat-be/internal/domain/entities"
 	"chat-be/internal/domain/repositories"
 	"errors"
+	"fmt"
+	"time"
 
 	"github.com/google/uuid"
 )
@@ -85,6 +87,13 @@ func (m *messageUsecase) SaveMessage(message *entities.Message) error {
 	if err != nil || receiver == nil {
 		return errors.New("invalid receiver")
 	}
+	loc, err := time.LoadLocation("Asia/Jakarta")
+	if err != nil {
+		fmt.Println("Error loading location:", err)
+		return err
+	}
+	message.CreatedAt = time.Now().In(loc)
+	fmt.Println("message.CreatedAt :", message.CreatedAt)
 	err = m.messageRepo.SaveMessage(message)
 	if err != nil {
 		return err
